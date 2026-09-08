@@ -254,7 +254,7 @@ function knownVulnerableComponents () {
     {
       [Op.and]: [
         { [Op.like]: '%sanitize-html%' },
-        { [Op.like]: '%1.4.2%' }
+        { [Op.like]: '%2.17.7%' }
       ]
     },
     {
