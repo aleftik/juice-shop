@@ -78,7 +78,7 @@ describe('/#/contact', () => {
   describe('challenge "knownVulnerableComponentChallenge"', () => {
     it('should be possible to post known vulnerable component(s) as feedback', () => {
       cy.get('#rating').type('{rightarrow}{rightarrow}{rightarrow}')
-      cy.get('#comment').type('sanitize-html 1.4.2 is non-recursive.')
+      cy.get('#comment').type('sanitize-html 2.17.7 is a known vulnerable component.')
       cy.get('#comment').type('express-jwt 0.1.3 has broken crypto.')
 
       cy.get('#submitButton').should('not.be.disabled').click()

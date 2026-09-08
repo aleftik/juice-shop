@@ -98,7 +98,7 @@ void describe('antiCheat', () => {
 
   void describe('checkForSourceFileOverlap', () => {
     void it('should not flag short submissions as cheating', () => {
-      const result = antiCheat.checkForSourceFileOverlap('knownVulnerableComponentChallenge', '"sanitize-html": "1.4.2",')
+      const result = antiCheat.checkForSourceFileOverlap('knownVulnerableComponentChallenge', '"sanitize-html": "2.17.7",')
       assert.strictEqual(result, false)
     })
 
@@ -129,7 +129,7 @@ void describe('antiCheat', () => {
     "express-jwt": "0.1.3",
     "fs-extra": "~4.0",
     "glob": "~5.0",
-    "sanitize-html": "1.4.2",
+    "sanitize-html": "2.17.7",
     "sequelize": "~4"
   }`
       const result = antiCheat.checkForSourceFileOverlap('knownVulnerableComponentChallenge', partialChunk)
@@ -137,7 +137,7 @@ void describe('antiCheat', () => {
     })
 
     void it('should not flag a minimal correct answer', () => {
-      const result = antiCheat.checkForSourceFileOverlap('knownVulnerableComponentChallenge', '"sanitize-html": "1.4.2"')
+      const result = antiCheat.checkForSourceFileOverlap('knownVulnerableComponentChallenge', '"sanitize-html": "2.17.7"')
       assert.strictEqual(result, false)
     })
 
