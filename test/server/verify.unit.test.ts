@@ -6,6 +6,7 @@
 import { describe, it, beforeEach, mock } from 'node:test'
 import assert from 'node:assert/strict'
 import config from 'config'
+import crypto from 'node:crypto'
 import jwt from 'jsonwebtoken'
 import { challenges, products, setRetrieveBlueprintChallengeFile } from '../../data/datacache'
 import type { Product, Challenge } from '@juice-shop/data/types'
@@ -306,7 +307,7 @@ void describe('verify', () => {
     })
 
     void it('"jwtForgedChallenge" is solved when forged token HMAC-signed with public RSA-key has email rsa_lord@juice-sh.op in the payload', { skip: isWindows() ? 'not supported on Windows' : false }, () => {
-      req.headers = { authorization: 'Bearer ' + jwt.sign({ data: { email: 'rsa_lord@juice-sh.op' } }, security.publicKey, { algorithm: 'HS256' }) }
+      req.headers = { authorization: 'Bearer ' + jwt.sign({ data: { email: 'rsa_lord@juice-sh.op' } }, crypto.createSecretKey(Buffer.from(security.publicKey)) as unknown as jwt.Secret, { algorithm: 'HS256' }) }
 
       verify.jwtChallenges()(req, res, next)
 
@@ -314,7 +315,7 @@ void describe('verify', () => {
     })
 
     void it('"jwtForgedChallenge" is solved when forged token HMAC-signed with public RSA-key has string "rsa_lord@" in the payload', { skip: isWindows() ? 'not supported on Windows' : false }, () => {
-      req.headers = { authorization: 'Bearer ' + jwt.sign({ data: { email: 'rsa_lord@' } }, security.publicKey, { algorithm: 'HS256' }) }
+      req.headers = { authorization: 'Bearer ' + jwt.sign({ data: { email: 'rsa_lord@' } }, crypto.createSecretKey(Buffer.from(security.publicKey)) as unknown as jwt.Secret, { algorithm: 'HS256' }) }
 
       verify.jwtChallenges()(req, res, next)
 
