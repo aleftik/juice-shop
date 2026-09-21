@@ -50,7 +50,7 @@ export const cutOffPoisonNullByte = (str: string) => {
 }
 
 export const isAuthorized = () => expressJwt({
-  secret: (_req, header, _payload, done) => done(null, header.alg === 'none' ? undefined : publicKey),
+  secret: (_req, header, _payload, done) => done(null, header?.alg === 'none' ? undefined : publicKey),
   algorithms: ['RS256', 'none']
 })
 export const denyAll = () => expressJwt({ secret: crypto.randomBytes(32).toString('hex'), algorithms: ['HS256'] })
