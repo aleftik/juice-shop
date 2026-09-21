@@ -18,7 +18,7 @@ import * as utils from './utils'
 import * as z85 from 'z85'
 
 export const publicKey = fs ? fs.readFileSync('encryptionkeys/jwt.pub', 'utf8') : 'placeholder-public-key'
-const privateKey = '-----BEGIN RSA PRIVATE KEY-----\r\nMIICXAIBAAKBgQDNwqLEe9wgTXCbC7+RPdDbBbeqjdbs4kOPOIGzqLpXvJXlxxW8iMz0EaM4BKUqYsIa+ndv3NAn2RxCd5ubVdJJcX43zO6Ko0TFEZx/65gY3BE0O6syCEmUP4qbSd6exou/F+WTISzbQ5FBVPVmhnYhG/kpwt/cIxK5iUn5hm+4tQIDAQABAoGBAI+8xiPoOrA+KMnG/T4jJsG6TsHQcDHvJi7o1IKC/hnIXha0atTX5AUkRRce95qSfvKFweXdJXSQ0JMGJyfuXgU6dI0TcseFRfewXAa/ssxAC+iUVR6KUMh1PE2wXLitfeI6JLvVtrBYswm2I7CtY0q8n5AGimHWVXJPLfGV7m0BAkEA+fqFt2LXbLtyg6wZyxMA/cnmt5Nt3U2dAu77MzFJvibANUNHE4HPLZxjGNXN+a6m0K6TD4kDdh5HfUYLWWRBYQJBANK3carmulBwqzcDBjsJ0YrIONBpCAsXxk8idXb8jL9aNIg15Wumm2enqqObahDHB5jnGOLmbasizvSVqypfM9UCQCQl8xIqy+YgURXzXCN+kwUgHinrutZms87Jyi+D8Br8NY0+Nlf+zHvXAomD2W5CsEK7C+8SLBr3k/TsnRWHJuECQHFE9RA2OP8WoaLPuGCyFXaxzICThSRZYluVnWkZtxsBhW2W8z1b8PvWUE7kMy7TnkzeJS2LSnaNHoyxi7IaPQUCQCwWU4U+v4lD7uYBw00Ga/xt+7+UqFPlPVdz1yyr4q24Zxaw0LgmuEvgU5dycq8N7JxjTubX0MIRR+G9fmDBBl8=\r\n-----END RSA PRIVATE KEY-----'
+const privateKey = '-----BEGIN RSA PRIVATE KEY-----\r\nMIIEogIBAAKCAQEAxK6vfow5SzaWsjrlA3tSO1jLcs6y//6oDEq+YTrAEXSlWuF2\r\n3WB+jleF4azK0zVWLTrUyPejOMm8FkqClJjg7mio/GpjUB1yAwGf83kpvKh1b4JJ\r\no777uKT7xkezGN8sDu5xpjeGMChV6XjFfPGGrBEh7WjIg15f9NHBqjUbHym0JCcT\r\n1dkYQ1dKxKmp50aZ7wwMieLYxCVP/YPjU42L9HFmo4QLkWtamTqG9wpQfvZUvq/Y\r\nrCxXQHBpftMoF37DUKZQ25BfJiCpy2cHpeT/XQzrWiBTOWDOEF4wh1Y7S7bQ+Z1c\r\nGfHtE3keF+GRpZjIcLUbIiBRyh3CFg1+SxEgewIDAQABAoIBAFWt+YJpyI201poG\r\n4PwOzWhQCrTVSZIOWBuetee6RbB0/ZGlFXhj0E3m38pLUUIIAqYKcmanxkF3VEnr\r\npI3iOV5yVmc7W08rvJ6Fpy3T0vQ9+IaencDI8nRh3tJmKqWDlvhcNEMh/gFdmOtv\r\nsqx2tOGhRwPauTrNMoT+mVyx7MI6T0UM+9vfZZtHawBV0xWkI6EAn+F1w23oM32C\r\n1H+FrmuUOCbUZXtagax2+RfcM2MuaWJBw2Ps/+8GW5d4UPew5+MIybqDeBTd0GbR\r\nJRjTYES8I9G/XMo3z7FnlMFdgSvWQ9x5vu7uk8EA1RkMm7RnNQxNahVoes9Wjh77\r\nJQ/5ldUCgYEA7lqUL5RxRsC5oV4dMaN8TsWrCJ0YfM6W0WGU2v9t28ms//moVfds\r\nhgMktfbjsijWbTnLUy2izPEjdTryjEqvfr+7aDK8cww+gQAF/NmRy0lTLAO7wj+x\r\nY8aFbp3XTuxOwI41FmduBDUX5XpBg9fPf4BCOfip7iRUK1GYnto1kQUCgYEA0z5T\r\nJr8Hfeo1xNdpdG+uW/2/kniBs5mYeJzj6wIbSTKxUmlPSQPM3eBPzyeoA0us71Yz\r\nZtyZ0QEjXoPpJCHoD4FOAQPrrLhdc5qd40JKAKfNDp6B4hkWGakqrEjSBOO6E/Rw\r\nMNoqrtorRoZATaOUd0eu8x/M0a6NxW9qrnsIo38CgYBXpJLMlAa6/27CeTq+3+B7\r\njo9/UVSJv+URBJKZnEanBJdKYGCXi60p8cnz5t5+yilebFvpL+Sm+xwQpSY+k8/I\r\nCXQ9sjo9C4mIIZwSB2Zmm4Wrr4vAt27gw0SZEgzzhkzG3QOEQ2/euC8bQEMK2bYA\r\nqgawDlFdsZoJe61k69O6iQKBgB9E2YAhxNUhpyXlEQoYQgIB9KqUxfY05TntV1uB\r\nK1LReygMyJyxQFETlBzA7QDX4dhntSIjw20JsxeZhRhBIJ2y8T37O5aMj+C94WMz\r\ne8rPC+5/DhDOz9Oqk9N+z//DSdcMVtMUaD8Lsl41Hy2e6ioh5Ua9zU64fOndzTfY\r\npHW3AoGATp+Td7yeLePkekH8umhUfOeU4mF9mHO4Ewl58gyU30GOUhftEu7Ai/PX\r\nH2VhtdYv20xRoYFESbFM4J0CpaGJS2iaM/63mXi6xIT/nHWiO/Y6LsOy/0nepxct\r\nbTVBTb51ZcjUp1bIu/cIwoXWd0Vw0xf1bybzZcwYtjcfNYWs2Ns=\r\n-----END RSA PRIVATE KEY-----'
 
 interface ResponseWithUser {
   status?: string
@@ -49,10 +49,13 @@ export const cutOffPoisonNullByte = (str: string) => {
   return str
 }
 
-export const isAuthorized = () => expressJwt(({ secret: publicKey }) as any)
-export const denyAll = () => expressJwt({ secret: '' + Math.random() } as any)
+export const isAuthorized = () => expressJwt({
+  secret: (_req, header, _payload, done) => done(null, header?.alg === 'none' ? undefined : publicKey),
+  algorithms: ['RS256', 'none']
+})
+export const denyAll = () => expressJwt({ secret: crypto.randomBytes(32).toString('hex'), algorithms: ['HS256'] })
 export const authorize = (user = {}) => jwt.sign(user, privateKey, { expiresIn: '6h', algorithm: 'RS256' })
-export const verify = (token: string) => token ? (jws.verify as ((token: string, secret: string) => boolean))(token, publicKey) : false
+export const verify = (token: string) => token ? jws.verify(token, 'RS256', publicKey) : false
 export const decode = (token: string) => { return jws.decode(token)?.payload }
 
 export const sanitizeHtml = (html: string) => sanitizeHtmlLib(html)
@@ -186,7 +189,9 @@ export const appendUserId = () => {
 export const updateAuthenticatedUsers = () => (req: Request, res: Response, next: NextFunction) => {
   const token = req.cookies.token || utils.jwtFrom(req)
   if (token && authenticatedUsers.get(token) === undefined) {
-    jwt.verify(token, publicKey, (err: Error | null, decoded: any) => {
+    const algorithm = jwt.decode(token, { complete: true })?.header.alg
+    const verificationKey = algorithm === 'none' ? null : publicKey
+    jwt.verify(token, verificationKey as jwt.Secret, { algorithms: ['RS256', 'none'] }, (err: Error | null, decoded: any) => {
       if (err === null && decoded?.data !== undefined) {
         authenticatedUsers.put(token, decoded)
         res.cookie('token', token)

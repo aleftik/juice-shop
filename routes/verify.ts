@@ -4,6 +4,7 @@
  */
 
 import { type NextFunction, type Request, type Response } from 'express'
+import crypto from 'node:crypto'
 import { Op } from 'sequelize'
 import jwt from 'jsonwebtoken'
 import config from 'config'
@@ -113,7 +114,7 @@ export const serverSideChallenges = () => (req: Request, res: Response, next: Ne
   next()
 }
 
-function jwtChallenge (challenge: Challenge, req: Request, algorithm: string, email: string | RegExp) {
+function jwtChallenge (challenge: Challenge, req: Request, algorithm: jwt.Algorithm, email: string | RegExp) {
   const token = utils.jwtFrom(req)
   if (token) {
     const decoded = jws.decode(token) ? jwt.decode(token) : null
@@ -122,7 +123,13 @@ function jwtChallenge (challenge: Challenge, req: Request, algorithm: string, em
       return
     }
 
-    jwt.verify(token, security.publicKey, (err: jwt.VerifyErrors | null) => {
+    const verificationKey = algorithm === 'none'
+      ? null
+      : algorithm === 'HS256'
+        ? crypto.createSecretKey(Buffer.from(security.publicKey))
+        : security.publicKey
+
+    jwt.verify(token, verificationKey as jwt.Secret, { algorithms: [algorithm] }, (err: jwt.VerifyErrors | null) => {
       if (err === null) {
         challengeUtils.solveIf(challenge, () => {
           return hasAlgorithm(token, algorithm) && hasEmail(decoded as { data: { email: string } }, email)
