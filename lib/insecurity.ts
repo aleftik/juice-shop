@@ -53,7 +53,7 @@ export const isAuthorized = () => expressJwt({
   secret: (_req, header, _payload, done) => done(null, header.alg === 'none' ? undefined : publicKey),
   algorithms: ['RS256', 'none']
 })
-export const denyAll = () => expressJwt({ secret: '' + Math.random(), algorithms: ['HS256'] })
+export const denyAll = () => expressJwt({ secret: crypto.randomBytes(32).toString('hex'), algorithms: ['HS256'] })
 export const authorize = (user = {}) => jwt.sign(user, privateKey, { expiresIn: '6h', algorithm: 'RS256' })
 export const verify = (token: string) => token ? jws.verify(token, 'RS256', publicKey) : false
 export const decode = (token: string) => { return jws.decode(token)?.payload }
