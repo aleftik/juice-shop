@@ -41,6 +41,13 @@ void describe('/rest/products/:id/reviews', () => {
     assert.ok(res.headers['content-type']?.includes('application/json'))
   })
 
+  void it('GET product reviews does not evaluate JavaScript expressions in the product id', async () => {
+    const res = await request(app)
+      .get('/rest/products/sleep(1)||true/reviews')
+    assert.equal(res.status, 200)
+    assert.deepEqual(res.body.data, [])
+  })
+
   // FIXME Turn on when #1960 is resolved
   void it.skip('GET product reviews by alphanumeric non-mongoDB-command product id', async () => {
     const res = await request(app)
