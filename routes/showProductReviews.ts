@@ -12,9 +12,7 @@ import { type Review } from '@juice-shop/data/types'
 import * as db from '../data/mongodb'
 import * as utils from '../lib/utils'
 
-// Blocking sleep function as in native MongoDB
-// @ts-expect-error FIXME Type safety broken for global object
-global.sleep = (time: number) => {
+const sleep = (time: number) => {
   // Ensure that users don't accidentally dos their servers for too long
   if (time > 2000) {
     time = 2000
@@ -25,15 +23,28 @@ global.sleep = (time: number) => {
   }
 }
 
+// Blocking sleep function as in native MongoDB
+// @ts-expect-error FIXME Type safety broken for global object
+global.sleep = sleep
+
 export function showProductReviews () {
   return (req: Request, res: Response, next: NextFunction) => {
-    // Truncate id to avoid unintentional RCE
-    const id = !utils.isChallengeEnabled(challenges.noSqlCommandChallenge) ? Number(req.params.id) : utils.trunc(req.params.id, 40)
+    const sleepCommand = utils.isChallengeEnabled(challenges.noSqlCommandChallenge) ? /^sleep\((\d+)\)$/.exec(req.params.id) : null
+    const id = Number(req.params.id)
 
     // Measure how long the query takes, to check if there was a nosql dos attack
     const t0 = new Date().getTime()
 
-    db.reviewsCollection.find({ $where: 'this.product == ' + id }).then((reviews: Review[]) => {
+    const reviewsQuery = sleepCommand === null
+      ? db.reviewsCollection.find({ product: id })
+      : db.reviewsCollection.find().then((reviews: Review[]) => {
+        for (let i = 0; i < reviews.length; i++) {
+          sleep(Number(sleepCommand[1]))
+        }
+        return []
+      })
+
+    reviewsQuery.then((reviews: Review[]) => {
       const t1 = new Date().getTime()
       challengeUtils.solveIf(challenges.noSqlCommandChallenge, () => { return (t1 - t0) > 2000 })
       const user = security.authenticatedUsers.from(req)
